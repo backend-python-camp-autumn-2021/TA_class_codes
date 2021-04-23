@@ -7,7 +7,7 @@ class Operator(models.Model):
 
 class SimCard(models.Model):
     
-    operator = models.ForeignKey(Operator ,on_delete=models.CASCADE,related_name="simcard_set")
+    operator = models.ForeignKey(Operator ,on_delete=models.CASCADE,related_name="simcard_set",related_query_name=)
     number = models.IntegerField()
 
 class Shalqam(AbstractUser):
