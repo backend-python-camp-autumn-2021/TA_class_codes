@@ -24,6 +24,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
 
+    path('accounts/signup/', views.signup_view, name="signup"),
     path('accounts/', include('django.contrib.auth.urls')),
 
     
@@ -31,12 +32,13 @@ urlpatterns = [
     
     path('', views.index, name='index'),
     path('add', views.addTodo, name='add'),
+    
     path('complete/<int:todo_id>/', views.completeTodo, name='complete'),
     path('deletecomplete', views.deleteCompleted, name='deletecomplete'),
     path('deleteall', views.deleteAll, name='deleteall'),
     path('my-permission', views.UserPermissionList.as_view(), name='my-permission'),
     
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
 
 
  

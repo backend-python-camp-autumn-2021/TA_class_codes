@@ -4,7 +4,10 @@ from .forms import TodoForm
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView
 from django.contrib.auth.models import Permission
-# Create your views here.
+from django.shortcuts import render
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
 
 
 
@@ -16,6 +19,20 @@ class UserPermissionList(ListView):
 
 
 
+
+
+
+def signup_view(request):
+    
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+        form.save()
+        username = form.cleaned_data.get('username')
+        password = form.cleaned_data.get('password1')
+        user = authenticate(username=username, password=password)
+        login(request, user)
+        return redirect('index')
+    return render(request, 'registration/signup.html', {'form': form})
 
 def index(request):
     todo_list = Todo.objects.order_by("id")
